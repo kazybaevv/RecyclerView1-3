@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerview1_3.databinding.FragmentMainBinding
 
 
@@ -30,7 +32,10 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loadData()
         adapter = CarAdapter(listCar)
-        binding.rvCars.adapter
+
+        binding.rvCars.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvCars.adapter = adapter
+
     }
     fun  loadData(){
         listCar.add(CarModel(
@@ -50,7 +55,7 @@ class MainFragment : Fragment() {
         )
         listCar.add(CarModel(
             img = "https://www.topgear.com/sites/default/files/cars-car/image/2025/09/24C0275_028.jpg",
-            name = "Mercedez Benz AMG GT", price = "42000$",
+            name = "Mercedez Benz \nAMG GT", price = "42000$",
             releaseDate = "2025"),
         )
         listCar.add(CarModel(
