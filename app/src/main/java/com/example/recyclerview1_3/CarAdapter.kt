@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recyclerview1_3.databinding.ItemCarsBinding
 
-class CarAdapter(private val carList: List<CarModel>) :
+class CarAdapter(private val carList: List<CarModel>, val onClick: (CarModel) -> Unit) :
     RecyclerView.Adapter<CarAdapter.CarViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -33,13 +33,17 @@ class CarAdapter(private val carList: List<CarModel>) :
     override fun getItemCount() = carList.size
 
 
-    class CarViewHolder(private val binding: ItemCarsBinding) :
+   inner class CarViewHolder(private val binding: ItemCarsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(carModel: CarModel) {
             binding.carName.text = carModel.name
             binding.carPrice.text = carModel.price
             binding.releaseDate.text = carModel.releaseDate
             Glide.with(binding.cars).load(carModel.img).into(binding.cars)
+
+            binding.root.setOnClickListener {
+                onClick(carModel)
+            }
         }
     }
 }

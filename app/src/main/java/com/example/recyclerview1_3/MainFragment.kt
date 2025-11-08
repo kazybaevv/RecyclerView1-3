@@ -1,6 +1,7 @@
 package com.example.recyclerview1_3
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recyclerview1_3.databinding.FragmentMainBinding
+import kotlin.math.log
 
 
 class MainFragment : Fragment() {
@@ -31,7 +33,16 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         loadData()
-        adapter = CarAdapter(listCar)
+        adapter = CarAdapter(listCar, onClick = { model ->
+           Log.d("olololo", "onViewCreated: ${model.name}")
+            val bundle = Bundle()
+            bundle.putSerializable("key", model)
+            val detailFragment = DetailFragment()
+            detailFragment.arguments = bundle
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragment_container,
+                detailFragment).addToBackStack(null)
+                .commit()
+        })
 
         binding.rvCars.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCars.adapter = adapter
