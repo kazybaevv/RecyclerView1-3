@@ -3,6 +3,7 @@ import org.gradle.kotlin.dsl.implementation
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+   id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -53,5 +54,9 @@ android {
 
         //GLide
         implementation(libs.glide)
+
+        //NavHost
+        implementation(libs.androidx.navigation.fragment)
+        implementation(libs.androidx.navigation.ui)
     }
 }
